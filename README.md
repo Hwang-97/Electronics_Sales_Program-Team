@@ -3,7 +3,7 @@
 
 팀원은 총 5명으로 진행하였습니다.
 
-프로젝트 구성 순서는
+프로젝트 구성 순서는 아래 절차대로 진행하였습니다.
 
 1. 요구분석서 작성         [5조 요구분석서.docx](https://github.com/Hwang-97/Java_5team_Project/files/7455443/5.docx)
 
