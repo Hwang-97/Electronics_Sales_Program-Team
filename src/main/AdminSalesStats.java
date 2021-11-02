@@ -1,6 +1,8 @@
 package main;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Set;
 
 /**
  * 
@@ -49,7 +51,61 @@ public class AdminSalesStats {
 		line(87);
 		getAge();
 		line(87);
+		getCategory1();
+		line(87);
+		getCategory2();
+		line(87);
+		line(87);
+		getProduct();
+	}
+	private static void getProduct() {
+		AdminStats.productStats.sort((p1,p2)->p2.getProductOrderNum()-p1.getProductOrderNum());
+		System.out.println("[인기순]");
+		AdminStats.productStats.stream().map(p->p.getProductCategory2Name()+" "+p.getProductName()+" "+String.format("\t\t%,10d원", p.getProductPrice())).forEach(name -> System.out.println("\t"+name));
 		
+	}
+	private static void getCategory2() {
+		HashMap<String,Integer> map = new HashMap<String,Integer>();
+		System.out.println("[카테고리 2]");
+		for(int i=0; i<AdminStats.productStats.size();i++) {
+			String key =AdminStats.productStats.get(i).getProductCategory2Name();
+			if(map.containsKey(key)) {
+				map.put(key, map.get(key)+AdminStats.productStats.get(i).getProductPrice());
+			}else {
+				map.put(key, AdminStats.productStats.get(i).getProductPrice());
+			}
+		}
+		Set<String> set = map.keySet();
+		for(String s : set) {
+			if(s.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")) {
+				System.out.printf("\t%-5s \t\t%,10d원\r\n",s,map.get(s));
+			}else {
+				System.out.printf("\t%-10s \t\t%,10d원\r\n",s,map.get(s));
+			}
+		}
+		System.out.println();
+	}
+
+	private static void getCategory1() {
+		HashMap<String,Integer> map = new HashMap<String,Integer>();
+		System.out.println("[카테고리 1]");
+		for(int i=0; i<AdminStats.productStats.size();i++) {
+			String key =AdminStats.productStats.get(i).getProductCategory1Name();
+			if(map.containsKey(key)) {
+				map.put(key, map.get(key)+AdminStats.productStats.get(i).getProductPrice());
+			}else {
+				map.put(key, AdminStats.productStats.get(i).getProductPrice());
+			}
+		}
+		Set<String> set = map.keySet();
+		for(String s : set) {
+			if(s.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")) {
+				System.out.printf("\t%-5s \t\t%,10d원\r\n",s,map.get(s));
+			}else {
+				System.out.printf("\t%-10s \t\t%,10d원\r\n",s,map.get(s));
+			}
+		}
+		System.out.println();
 	}
 		private static void getAge() {
 		int teenager=0;

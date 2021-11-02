@@ -16,25 +16,47 @@ public class AdminStats {
 	 * Admin 통계 내부파일
 	 */
 	public static List<Member> memberstat; 		// 한번이라도 구매한 회원
-	/**
-	 * Admin 통계 내부파일
-	 */
 	public static List<Product> productStats;	// 한번이라도 판매된 상품
+	
+	public static List<Member> basketMemberstat; 		// 장바구니를 사용중인 회윈
+	public static List<Product> basketProductStats;		// 한번이라도 장바구니에 들어간 상품
+	
 	private static int i=0; 					// stream class 사용용
 	
 	private static void addList() {
-		
+		//비회원도 통합하여 계산 
 		memberstat = new ArrayList<Member>();
 		productStats = new ArrayList<Product>();
 																													// 한번이라도 구매한 회원 복사
 		for(i=0;i<Main.orderList.size();i++) {
 			Main.memberList.stream().filter(m-> m.getMemberNumber()==Main.orderList.get(i).getMemberNumber()).forEach(m->memberstat.add(m));
 		}
+		for(i=0;i<Main.nonMemberOrderList.size();i++) {																// 비회원 부분 상품 복사
+			Main.nonMemberList.stream().filter(m->m.getMemberNumber()==Main.nonMemberOrderList.get(i).getMemberNumber()).forEach(m->memberstat.add(m));
+		}
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		for(i=0;i<Main.orderList.size();i++) {																		// 한번이라도 판매된 상품 복사 ( 중복이 없게 contain 확인) + 비회원도 진행
 			Main.productList.stream().filter(p->p.getProductNum()==Main.orderList.get(i).getGoodsNumber() && !productStats.contains(p)).forEach(p->productStats.add(p));
 		}
-		for(i=0;i<Main.nonMemberOrderList.size();i++) {
+		for(i=0;i<Main.nonMemberOrderList.size();i++) {																// 비회원 부분 상품 복사
 			Main.productList.stream().filter(p->p.getProductNum()==Main.nonMemberOrderList.get(i).getGoodsNumber() && !productStats.contains(p)).forEach(p->productStats.add(p));
+		}
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		basketMemberstat =new ArrayList<Member>();
+		basketProductStats=new ArrayList<Product>();
+		
+		for(i=0;i<Main.basketList.size();i++) {																		// 장바구니를 사용중인 회윈
+			Main.memberList.stream().filter(m-> m.getMemberNumber()==Main.basketList.get(i).getMemberNum()).forEach(m->basketMemberstat.add(m));
+		}
+		for(i=0;i<Main.nonMemberBasketList.size();i++) {															// 장바구니를 사용중인 비회윈
+			Main.nonMemberList.stream().filter(m->m.getMemberNumber()==Main.basketList.get(i).getMemberNum()).forEach(m->basketMemberstat.add(m));
+		}
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		for(i=0;i<Main.basketList.size();i++) {																		// 한번이라도 장바구니에 들어간 상품(회원)
+			Main.productList.stream().filter(p->p.getProductNum()==Main.basketList.get(i).getItemNumber()).forEach(p->basketProductStats.add(p));
+		}
+		for(i=0;i<Main.nonMemberBasketList.size();i++) {															// 한번이라도 장바구니에 들어간 상품(비회원)
+			Main.productList.stream().filter(p->p.getProductNum()==Main.nonMemberBasketList.get(i).getItemNumber()).forEach(p->basketProductStats.add(p));
 		}
 	}
 	/**

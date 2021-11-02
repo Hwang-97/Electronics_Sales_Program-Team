@@ -83,9 +83,9 @@ public class AdminPurchaseStats {
 		Set<String> set = map.keySet();
 		for(String s : set) {
 			if(s.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")) {
-				System.out.printf("\t%-2s: %3d개\r\n",s,map.get(s));
+				System.out.printf("\t%-5s \t\t%3d개\r\n",s,map.get(s));
 			}else {
-				System.out.printf("\t%-4s: %3d개\r\n",s,map.get(s));
+				System.out.printf("\t%-10s \t\t%3d개\r\n",s,map.get(s));
 			}
 		}
 		System.out.println();
@@ -105,9 +105,9 @@ public class AdminPurchaseStats {
 		Set<String> set = map.keySet();
 		for(String s : set) {
 			if(s.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")) {
-				System.out.printf("\t%-2s: %3d개\r\n",s,map.get(s));
+				System.out.printf("\t%-5s \t\t%3d개\r\n",s,map.get(s));
 			}else {
-				System.out.printf("\t%-4s: %3d개\r\n",s,map.get(s));
+				System.out.printf("\t%-10s \t\t%3d개\r\n",s,map.get(s));
 			}
 		}
 		System.out.println();

@@ -25,8 +25,9 @@ public class Basket {
 	@Override
 	public String toString() {
 		return "basketData [memberNum=" + memberNum + ", itemNumber=" + itemNumber + ", numberOfItem=" + numberOfItem
-				+ "]";
+				+ "]\r\n";
 	}
+	
 	
 	
 }
