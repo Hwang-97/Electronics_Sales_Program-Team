@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import createDump.DetailPageDump;
 import createObject.*;
-
+import main.admin.stats.AdminStats;
 public class Main {
 	public static Scanner scan = new Scanner(System.in);
 	
@@ -44,6 +44,12 @@ public class Main {
 	    nonMemberList = NonMemberList.load();               // 비회원데이터.txt
 	    nonMemberOrderList = NonMemberOrderList.load();         // 비회원 주문 데이터.txt
 		
+	    
+//	    System.out.println(productList.size());
+//	    productList.stream().forEach(p->System.out.println(p.toString()));
+//	    System.out.println(productList.get(productList.size()-1));
+	    
+	    AdminProduct.main();
 //	    AdminStats.main();
 		MainScreen.main();
 		
