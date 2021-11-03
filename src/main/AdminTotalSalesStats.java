@@ -4,13 +4,12 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Set;
 
-
 /**
  * 
  * @author 황현우	
  *관리자 로그인 후 통계를 반환하는 클래스
  */
-public class AdminPurchaseStats {
+public class AdminTotalSalesStats {
 	/**
 	 * 
 	 * 
@@ -21,19 +20,18 @@ public class AdminPurchaseStats {
 	public static boolean main() {
 		
 		boolean loop = true;
+
+		System.out.println("\n\n\n\n\n\n\n\n\n\n");
 		
 		while (loop) {
 			printMain();
-			
 			printStat();
-			
 			menuMain();
 
 			System.out.print("선택: ");
 			int sel = Main.inputUserNum(0,1);
 			Main.scan.nextLine();
 			
-			System.out.println("\n\n\n\n\n\n\n\n\n\n");
 
 			switch (sel) {
 			case 0: //종료
@@ -46,13 +44,8 @@ public class AdminPurchaseStats {
 		}
 		return true;
 	}
-	
-	
-	
 	private static void printStat() {
-		//구매통계
-		//분류 성별 나이 카테고리 인기순
-		//1. 구매 리스트에 있는 회원 정보를 public statMember Array에 넣음
+		//성별 나이 카테고리..? 인기순
 		System.out.println("[분류]");
 		System.out.println();
 		getGender();
@@ -62,13 +55,13 @@ public class AdminPurchaseStats {
 		getCategory1();
 		line(87);
 		getCategory2();
+		line(87);
 	}
-
 	private static boolean getProduct() {
 		line(87);
 		AdminStats.productStats.sort((p1,p2)->p2.getProductOrderNum()-p1.getProductOrderNum());
 		System.out.println("[인기순]");
-		AdminStats.productStats.stream().map(p->p.getProductCategory2Name()+" "+p.getProductName()).forEach(name -> System.out.println("\t"+name));
+		AdminStats.productStats.stream().map(p->p.getProductCategory2Name()+" "+p.getProductName()+" "+String.format("\t\t%,10d원", p.getProductPrice())).forEach(name -> System.out.println("\t"+name));
 		System.out.println("───────────────── [ 메뉴 목록 ] ─────────────────");
 		System.out.println("0. 뒤로가기");
 		System.out.println("──────────────────────────────────────────────────");
@@ -80,21 +73,20 @@ public class AdminPurchaseStats {
 		}
 		return true;
 	}
-
 	private static void getCategory2() {
 		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		System.out.println("[카테고리 2]");
 		for(int i=0; i<AdminStats.productStats.size();i++) {
 			String key =AdminStats.productStats.get(i).getProductCategory2Name();
 			if(map.containsKey(key)) {
-				map.put(key, map.get(key)+1);
+				map.put(key, map.get(key)+AdminStats.productStats.get(i).getProductPrice());
 			}else {
-				map.put(key, 1);
+				map.put(key, AdminStats.productStats.get(i).getProductPrice());
 			}
 		}
 		Set<String> set = map.keySet();
 		for(String s : set) {
-			System.out.printf("\t%-5s \t\t%3d개\r\n",s,map.get(s));
+			System.out.printf("\t%-5s \t\t%,10d원\r\n",s,map.get(s));
 		}
 		System.out.println();
 	}
@@ -105,18 +97,18 @@ public class AdminPurchaseStats {
 		for(int i=0; i<AdminStats.productStats.size();i++) {
 			String key =AdminStats.productStats.get(i).getProductCategory1Name();
 			if(map.containsKey(key)) {
-				map.put(key, map.get(key)+1);
+				map.put(key, map.get(key)+AdminStats.productStats.get(i).getProductPrice());
 			}else {
-				map.put(key, 1);
+				map.put(key, AdminStats.productStats.get(i).getProductPrice());
 			}
 		}
 		Set<String> set = map.keySet();
 		for(String s : set) {
-			System.out.printf("\t%-5s \t\t%3d개\r\n",s,map.get(s));
+			System.out.printf("\t%-5s \t\t%,10d원\r\n",s,map.get(s));
 		}
 		System.out.println();
 	}
-	private static void getAge() {
+		private static void getAge() {
 		int teenager=0;
 		int twenties=0;
 		int thirties=0;
@@ -139,64 +131,61 @@ public class AdminPurchaseStats {
 			age=(now-year)/10;
 			switch(age) {
 				case 1:
-					teenager++;
+					teenager+=AdminStats.memberstat.get(i).getTotalMoney();
 					break;
 				case 2:
-					twenties++;
+					twenties+=AdminStats.memberstat.get(i).getTotalMoney();
 					break;
 				case 3:
-					thirties++;
+					thirties+=AdminStats.memberstat.get(i).getTotalMoney();
 					break;
 				case 4:
-					forties++;
+					forties+=AdminStats.memberstat.get(i).getTotalMoney();
 					break;
 				case 5:
-					fifties++;
+					fifties+=AdminStats.memberstat.get(i).getTotalMoney();
 					break;
 				default:
-					old++;
+					old+=AdminStats.memberstat.get(i).getTotalMoney();
 					break;
 			}
 		}
-		System.out.printf("[10대%3d명] ",teenager);
-		System.out.printf("[20대%3d명] ",twenties);
-		System.out.printf("[30대%3d명] ",thirties);
-		System.out.printf("[40대%3d명] ",forties);
-		System.out.printf("[50대%3d명] ",fifties);
-		System.out.printf("[60세이상 %3d명]",old);
+		System.out.printf("[10대%,10d원] ",teenager);
+		System.out.printf("[20대%,10d원] ",twenties);
+		System.out.printf("[30대%,10d원] ",thirties);
+		System.out.printf("[40대%,10d원] ",forties);
+		System.out.printf("[50대%,10d원] ",fifties);
+		System.out.printf("[60세이상 %,10d원]",old);
 		System.out.println();
 	}
-
-	public static void getGender() {
+	private static void getGender() {
 		System.out.println("[성별]");
 		tap();
-		int count=0;
+		int money=0;
 		for(int i=0;i<AdminStats.memberstat.size();i++) {
 			if(AdminStats.memberstat.get(i).getGender().equals("M")) {
-				count++;
+				money+=AdminStats.memberstat.get(i).getTotalMoney();
 			}
 		}
-		System.out.printf("남자 : %,5d 명",count);
+		System.out.printf("남자 : %,10d원",money);
 		tap();
 		tap();
-		count=0;
+		money=0;
 		for(int i=0;i<AdminStats.memberstat.size();i++) {
 			if(AdminStats.memberstat.get(i).getGender().equals("F")) {
-				count++;
+				money+=AdminStats.memberstat.get(i).getTotalMoney();
 			}
 		}
-		System.out.printf("여자 : %,5d 명",count);
+		System.out.printf("여자 : %,10d원",money);
 		System.out.println();
 	}
-
-
 
 	private static void menuMain() {
 		
 		// 메인
 		// 메뉴출력
 		
-		System.out.println("───────────────── [ 메뉴 목록 ] ─────────────────");
+		System.out.println("───────────────── [ 매출 통계 ] ─────────────────");
 		System.out.println("0. 뒤로가기");
 		System.out.println("1. 인기상품순 통계");
 		System.out.println("──────────────────────────────────────────────────");
@@ -215,10 +204,9 @@ public class AdminPurchaseStats {
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		
 		System.out.println(s);
-		System.out.println("───────────────── [ 구매 통계 ] ─────────────────");
+		System.out.println("───────────────── [ 통계 관리 ] ─────────────────");
+		// TODO figlet으로 상품조회 이미지 넣기
 	}
-	
-	
 	
 	private static void line() {
 		
@@ -242,6 +230,5 @@ public class AdminPurchaseStats {
 			System.out.print("\t");
 		}
 	}
+
 }
-
-
