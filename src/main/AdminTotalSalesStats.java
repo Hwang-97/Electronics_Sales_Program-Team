@@ -17,10 +17,11 @@ public class AdminTotalSalesStats {
 	 * 
 	 * 모든 관련 클래스들 끼리 상호작용하며 최종적으로 해당 화면을 나올시 true를 반환한다.
 	 */
+	private static long totalSales;
 	public static boolean main() {
 		
 		boolean loop = true;
-
+		
 		System.out.println("\n\n\n\n\n\n\n\n\n\n");
 		
 		while (loop) {
@@ -45,6 +46,9 @@ public class AdminTotalSalesStats {
 		return true;
 	}
 	private static void printStat() {
+		
+		totalSales=0;
+		
 		//성별 나이 카테고리..? 인기순
 		System.out.println("[분류]");
 		System.out.println();
@@ -56,12 +60,15 @@ public class AdminTotalSalesStats {
 		line(87);
 		getCategory2();
 		line(87);
+		System.out.println();
+		System.out.printf("총 누적 매출액 : %,d원\r\n",totalSales);
+		System.out.println();
 	}
 	private static boolean getProduct() {
 		line(87);
 		AdminStats.productStats.sort((p1,p2)->p2.getProductOrderNum()-p1.getProductOrderNum());
 		System.out.println("[인기순]");
-		AdminStats.productStats.stream().map(p->p.getProductCategory2Name()+" "+p.getProductName()+" "+String.format("\t\t%,10d원", p.getProductPrice())).forEach(name -> System.out.println("\t"+name));
+		AdminStats.productStats.stream().map(p->p.getProductCategory2Name()+" "+p.getProductName()+" "+String.format("\t\t%,20d원", p.getProductPrice()*p.getProductOrderNum())).forEach(name -> System.out.println("\t"+name));
 		System.out.println("───────────────── [ 메뉴 목록 ] ─────────────────");
 		System.out.println("0. 뒤로가기");
 		System.out.println("──────────────────────────────────────────────────");
@@ -161,6 +168,7 @@ public class AdminTotalSalesStats {
 	private static void getGender() {
 		System.out.println("[성별]");
 		tap();
+		
 		int money=0;
 		for(int i=0;i<AdminStats.memberstat.size();i++) {
 			if(AdminStats.memberstat.get(i).getGender().equals("M")) {
@@ -170,6 +178,7 @@ public class AdminTotalSalesStats {
 		System.out.printf("남자 : %,10d원",money);
 		tap();
 		tap();
+		totalSales+=money;
 		money=0;
 		for(int i=0;i<AdminStats.memberstat.size();i++) {
 			if(AdminStats.memberstat.get(i).getGender().equals("F")) {
@@ -177,6 +186,7 @@ public class AdminTotalSalesStats {
 			}
 		}
 		System.out.printf("여자 : %,10d원",money);
+		totalSales+=money;
 		System.out.println();
 	}
 

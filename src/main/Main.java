@@ -44,7 +44,7 @@ public class Main {
 	    nonMemberList = NonMemberList.load();               // 비회원데이터.txt
 	    nonMemberOrderList = NonMemberOrderList.load();         // 비회원 주문 데이터.txt
 		
-	    AdminStats.main();
+//	    AdminStats.main();
 		MainScreen.main();
 		
 		scan.close();

@@ -37,13 +37,13 @@ public class AdminSalesStats {
 				loop = false;
 				break;
 			case 1: 
-				AdminTotalSalesStats.main();
+				loop =AdminTotalSalesStats.main();
 				break;
 			case 2: 
-				loop = true;
+				loop = AdminYearSalesStats.main();
 				break;
 			case 3: //년간
-				loop = true;
+				loop = AdminMonthSalesStats.main();
 				break;
 			}
 		}
