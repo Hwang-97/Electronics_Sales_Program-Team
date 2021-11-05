@@ -1,9 +1,7 @@
 package main;
 
-import java.util.Scanner;
-
 public class Login {
-	public static boolean main() {
+	public static boolean main() throws Exception {
 		
 		// 메인 - 로그인
 		boolean loop = true;
@@ -23,13 +21,13 @@ public class Login {
 				loop = false;				//뒤로가기
 				break;
 			case 1: 
-				loop = InputLogin.main();	//
+				loop = MemberLogin.main();	//
 				break;
 			case 2:
-				//loop = nonMember.main();
+				loop = NonMemberLogin.main();
 				break;
 			case 3:
-				//loop = Admin.main();
+				loop = AdminLogin.main();
 				break;
 			case 4:
 				loop = FindID.main();
@@ -45,22 +43,29 @@ public class Login {
 
 
 	private static void printLogin() {
-		System.out.println("───────────────── [ 로그인 화면 ] ─────────────────");
-		
+		System.out.println("===========================================================================================================");
+		System.out.println("\t\t\t\t\t   __             _       \r\n"
+						+ "\t\t\t\t\t  / /  ___   __ _(_)_ __  \r\n"
+						+ "\t\t\t\t\t / /  / _ \\ / _` | | '_ \\ \r\n"
+						+ "\t\t\t\t\t/ /__| (_) | (_| | | | | |\r\n"
+						+ "\t\t\t\t\t\\____/\\___/ \\__, |_|_| |_|\r\n"
+						+ "\t\t\t\t\t            |___/         ");
+		System.out.println("===========================================================================================================");
+		System.out.println();
+		System.out.println();
 	}//printLogin()
 
 	private static void menuLogin() {
 		
 		// 메인 - 로그인
 		
-		System.out.println("───────────────── [ 메뉴 목록 ] ─────────────────");
-		System.out.println("0. 뒤로가기");
-		System.out.println("1. 회원 로그인");
-		System.out.println("2. 비회원 로그인");
-		System.out.println("3. 관리자 로그인");
-		System.out.println("4. 아이디찾기");
-		System.out.println("5. 비밀번호 찾기");
-		System.out.println("──────────────────────────────────────────────────");
+		System.out.println("─────────────────────────────────────────── +-+-+|M|E|N|U|+-+-+ ───────────────────────────────────────────");
+		System.out.println("\t\t\t 1. 회원 로그인 \t\t\t\t 2. 비회원 로그인");
+		System.out.println();
+		System.out.println("\t\t\t 3. 관리자 로그인 \t\t\t\t 4. 아이디찾기");
+		System.out.println();
+		System.out.println("\t\t\t 5. 비밀번호 찾기 \t\t\t\t 0. 뒤로가기");
+		System.out.println("───────────────────────────────────────────────────────────────────────────────────────────────────────────");
 		
 	}//menuLogin()
 	

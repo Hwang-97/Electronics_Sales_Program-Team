@@ -20,14 +20,17 @@ public class Withdraw {
 						Main.pw=null;
 						Main.nowLogin=false;
 						System.out.println("회원 탈퇴가 완료되었습니다");
+						System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n");
 						return false;
 					}
 				}
 			} else {
+				System.out.println("───────────────────────────────────────────────────────────────────────────────────────────────────────────");
 				System.out.println("회원 탈퇴를 취소합니다");
 				return true;
 			}
 		} else {
+			System.out.println("───────────────────────────────────────────────────────────────────────────────────────────────────────────");
 			System.out.println("비밀번호가 일치하지 않습니다");
 			return true;
 		}
@@ -36,7 +39,7 @@ public class Withdraw {
 
 	private static void menuWithdraw() {
 		System.out.println();
-		System.out.println("#####회원 탈퇴#####");
+		System.out.println("\t\t\t ++++++++++++++++++++++ 회원탈퇴 ++++++++++++++++++++++");
 		System.out.println();
 	}
 

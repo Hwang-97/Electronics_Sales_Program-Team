@@ -1,16 +1,17 @@
 package main;
 
-import java.util.Scanner;
-
 import createObject.*;
 
 public class SearchProduct {
 	public static boolean main() {
-
+		
 		boolean loop = true;
 		int searchCategory1 = -1; // 사용자가 고른 카테고리1
 
 		while (loop) {
+			if(BuyProduct.gotoInput) 
+				return true;
+			
 			printProductList(); // 화면출력
 			showProductList(); // 전체상품조회
 
@@ -60,32 +61,6 @@ public class SearchProduct {
 		return true;
 	}
 
-	private static void process1(int searchCategory1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private static boolean isWantBack(int i, int searchCategory1) {
-		if (i == searchCategory1)
-			return true;
-		else
-			return false;
-	}
-
-	private static void menuSearchProduct() {
-		System.out.println("─────────────────── [ 메뉴 ] ───────────────────");
-		System.out.println("0. 뒤로");
-		System.out.println("1. ");
-		System.out.println("2. ");
-		System.out.println("3. ");
-		System.out.println("───────────────────────────────────────────────");
-	}
-
-	private static void printSearchProduct() {
-		System.out.println("───────────────── [ 상품 조회 ] ─────────────────");
-
-	}
-
 	// 기능
 	public static int inputCategoryNum() {
 
@@ -115,7 +90,7 @@ public class SearchProduct {
 		// 전체 상품 리스트 조회 메소드, (카테고리1, 카테고리2)로 서칭가능하게 오버로드
 
 		int count = 0;
-		System.out.println("상품번호\t상품코드\t\t상품명\t모델이름\t카테고리1\t카테고리2\t가격\t재고\t할인율\t주문횟수\t환불횟수");
+		System.out.println("상품번호\t상품코드\t\t상품명\t모델이름\t카테고리1\t카테고리2\t\t    가격\t\t재고\t할인율\t주문횟수\t환불횟수");
 		for (Product p : Main.productList) {
 			if (Integer.parseInt(p.getProductCategory1()) == searchCategory1
 					&& Integer.parseInt(p.getProductCategory2()) == searchCategory2) {
@@ -124,23 +99,15 @@ public class SearchProduct {
 						+ "%s\t" // 상품명
 						+ "%s\t" // 모델이름
 						+ "%s\t" // 카테고리1
-						+ "%s\t" // 카테고리2
-						+ "%,8d원\t" // 가격
-						+ "%s개\t" // 재고
-						+ "%s%%\t" // 할인율
-						+ "%s회\t" // 주문횟수
+						+ "%s\t\t" // 카테고리2
+						+ " %,8d원\t" // 가격
+						+ " %s개\t" // 재고
+						+ " %s%%\t" // 할인율
+						+ " %s회\t" // 주문횟수
 						+ "%s회\n" // 환불횟수
-						, p.getProductNum()
-						, p.getProductCode()
-						, p.getProductName()
-						, p.getProductModel()
-						, p.getProductCategory1Name()
-						, p.getProductCategory2Name()
-						, p.getProductPrice()
-						, p.getProductStock()
-						, p.getProductSale() * 100
-						, p.getProductOrderNum()
-						, p.getProductRefundNum());
+						, p.getProductNum(), p.getProductCode(), p.getProductName(), p.getProductModel(),
+						p.getProductCategory1Name(), p.getProductCategory2Name(), p.getProductPrice(), p.getProductStock(),
+						p.getProductSale() * 100, p.getProductOrderNum(), p.getProductRefundNum());
 				count++;
 			}
 		}
@@ -153,7 +120,7 @@ public class SearchProduct {
 		// 전체 상품 리스트 조회 메소드, (카테고리1, 카테고리2)로 서칭가능하게 오버로드
 
 		int count = 0;
-		System.out.println("상품번호\t상품코드\t\t상품명\t모델이름\t카테고리1\t카테고리2\t\t가격\t재고\t할인율\t주문횟수\t환불횟수");
+		System.out.println("상품번호\t상품코드\t\t상품명\t모델이름\t카테고리1\t카테고리2\t\t    가격\t\t재고\t할인율\t주문횟수\t환불횟수");
 		for (Product p : Main.productList) {
 			System.out.printf("%s\t" // 상품번호
 					+ "%s\t" // 상품코드
@@ -161,10 +128,10 @@ public class SearchProduct {
 					+ "%s\t" // 모델이름
 					+ "%s\t" // 카테고리1
 					+ "%s\t\t" // 카테고리2
-					+ "%,8d원\t" // 가격
-					+ "%s개\t" // 재고
-					+ "%s%%\t" // 할인율
-					+ "%s회\t" // 주문횟수
+					+ " %,8d원\t" // 가격
+					+ " %s개\t" // 재고
+					+ " %s%%\t" // 할인율
+					+ " %s회\t" // 주문횟수
 					+ "%s회\n" // 환불횟수
 					, p.getProductNum(), p.getProductCode(), p.getProductName(), p.getProductModel(),
 					p.getProductCategory1Name(), p.getProductCategory2Name(), p.getProductPrice(), p.getProductStock(),
@@ -178,7 +145,17 @@ public class SearchProduct {
 
 		// 메인 – 로그인 – 회원 – 아이디입력/비밀번호입력 – 상품조회
 
-		System.out.println("───────────────── [ 🛒 상품 조회 ] ─────────────────");
+		System.out.println("===========================================================================================================");
+		System.out.println("\t\t   ___               _            _      __                     _     \r\n"
+				+ "\t\t  / _ \\_ __ ___   __| |_   _  ___| |_   / _\\ ___  __ _ _ __ ___| |__  \r\n"
+				+ "\t\t / /_)/ '__/ _ \\ / _` | | | |/ __| __|  \\ \\ / _ \\/ _` | '__/ __| '_ \\ \r\n"
+				+ "\t\t/ ___/| | | (_) | (_| | |_| | (__| |_   _\\ \\  __/ (_| | | | (__| | | |\r\n"
+				+ "\t\t\\/    |_|  \\___/ \\__,_|\\__,_|\\___|\\__|  \\__/\\___|\\__,_|_|  \\___|_| |_|\r\n"
+				+ "\t\t                                                                      ");
+		System.out.println("===========================================================================================================");
+		System.out.println();
+		
+		//System.out.println("───────────────────────────────── [ 🛒 상품 조회 ] ─────────────────────────────────────────");
 		// TODO figlet으로 상품조회 이미지 넣기
 
 	}// printProductList()
@@ -188,12 +165,14 @@ public class SearchProduct {
 		// 메인 – 로그인 – 회원 – 아이디입력/비밀번호입력 – 상품조회
 		// ProductList.java에 static으로 선언한 카테고리 배열을 받아와서 목록을 출력하는 메소드
 
-		System.out.println("───────────────── [ 카테고리 목록 ] ─────────────────");
-		System.out.println("0. 뒤로가기");
+		System.out.println("──────────────────────────────────── +-+-+|C|a|t|e|g|o|r|y| |M|E|N|U|+-+-+ ────────────────────────────────");
 		for (int i = 0; i < categoryArray.length; i++) {
-			System.out.printf("%d. %s\n", i + 1, categoryArray[i]);
+			System.out.printf("\t\t\t %d. %s\n", i + 1, categoryArray[i]);
 		}
-		System.out.println("──────────────────────────────────────────────────");
+		System.out.println();
+		System.out.println("\t\t\t 0. 뒤로가기");
+		System.out.println("───────────────────────────────────────────────────────────────────────────────────────────────────────────");
+
 		System.out.print("조회할 카테고리 입력 > ");
 
 	}// menuCategoryList(String[] categoryArray)

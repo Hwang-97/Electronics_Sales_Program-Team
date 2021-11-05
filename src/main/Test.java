@@ -30,11 +30,11 @@ public class Test {
 		
 		
 		
-		System.out.println(Main.basketList);								//장바구니 데이터.txt
-		System.out.println(Main.basketList.get(0).getItemNumber());								//장바구니 데이터.txt
-		Main.basketList.get(0).setItemNumber(2);
-		System.out.println(Main.basketList.get(0).getItemNumber());								//장바구니 데이터.txt
-		Main.basketList.get(0).setItemNumber(27);
-		System.out.println(Main.basketList.get(0).getItemNumber());	
+		//System.out.println(Main.basketList);								//장바구니 데이터.txt
+		//System.out.println(Main.basketList.get(0).getItemNumber());								//장바구니 데이터.txt
+		//Main.basketList.get(0).setItemNumber(2);
+		//System.out.println(Main.basketList.get(0).getItemNumber());								//장바구니 데이터.txt
+		//Main.basketList.get(0).setItemNumber(27);
+		//System.out.println(Main.basketList.get(0).getItemNumber());	
 	}
 }

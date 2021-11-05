@@ -3,8 +3,8 @@ package main;
 import java.util.List;
 import java.util.Scanner;
 
-import createDump.DetailPageDump;
 import createObject.*;
+import createDump.*;
 
 public class Main {
 	public static Scanner scan = new Scanner(System.in);
@@ -32,7 +32,7 @@ public class Main {
 	
 	public static void main(String[] args) throws Exception {
 		// 데이터 로드
-		memberList=MemberList.load();		//회원데이터.txt
+	
 		basketList = BasketList.load();		//장바구니 데이터.txt
 		orderList = OrderList.load();		//주문 데이터.txt
 		productList= ProductList.load();	//상품 데이터.txt
@@ -40,17 +40,22 @@ public class Main {
 		reviewList = ReviewList.load();		//상품 리뷰.txt
 		trackingList = TrackingList.load();	//배송 데이터.txt
 		
-		nonMemberBasketList = NonMemberBasketList.load();      // 비회원 장바구니 데이터.txt
+		memberList=MemberList.load();		//회원데이터.txt
+		//nonMemberBasketList = NonMemberBasketList.load();      // 비회원 장바구니 데이터.txt
 	    nonMemberList = NonMemberList.load();               // 비회원데이터.txt
 	    nonMemberOrderList = NonMemberOrderList.load();         // 비회원 주문 데이터.txt
-		
-	    AdminStats.main();
+	    
+//	    DetailPageDump.dump(); //덤프파일 생성시 주석 삭제
+	    
 		MainScreen.main();
 		
 		scan.close();
 		System.out.println("텍스트 파일을 업데이트 합니다.");
 //		save();
 		System.out.println("프로그램이 종료되었습니다.");
+		
+		//ContentData.saveQuery();
+		ContentData.saveReview();
 		
 	}// 메인 메소드
 	

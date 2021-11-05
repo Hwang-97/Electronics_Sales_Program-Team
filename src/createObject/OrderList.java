@@ -38,41 +38,31 @@ public class OrderList {
 		reader.close();
 		return orderList;
 	}
-//	public static void save() {
-//		try {
-//			// 현재까지의 주문 ArrayList에 저장
-//			BufferedWriter writer = new BufferedWriter(new FileWriter(path));
-//			StringBuilder txt =new  StringBuilder();
-//			for(int i=0; i<Main.orderList.size();i++) {
-//				txt.append(Main.orderList.get(i).getOrderNumber());
-//				txt.append("▶");
-//				txt.append(Main.orderList.get(i).getGoodsNumber());
-//				txt.append("▶");
-//				txt.append(Main.orderList.get(i).getMemberNumber());
-//				txt.append("▶");
-//				txt.append(Main.orderList.get(i).getUsePoint());
-//				txt.append("▶");
-//				txt.append(Main.orderList.get(i).getAccumulatePoint());
-//				txt.append("▶");
-//				txt.append(Main.orderList.get(i).getName());
-//				txt.append("▶");
-//				txt.append(Main.orderList.get(i).getAddress());
-//				txt.append("▶");
-//				txt.append(Main.orderList.get(i).getPhoneNumber());
-//				txt.append("▶");
-//				txt.append(Main.orderList.get(i).getSelectPayment());
-//				txt.append("▶");
-//				txt.append(Main.orderList.get(i).isCancelCheck());
-//				txt.append("▶");
-//				txt.append(String.format("%tF", Main.orderList.get(i).getOrderDate()));
-//				txt.append("▶");
-//				txt.append(Main.orderList.get(i).getInvoiceNumber());
-//				txt.append("\r\n");
-//			}
-//			writer.write(txt.toString());
-//			writer.close();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
+
+	public static void save() {
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+			String temp = "";
+			for (Order o : Main.orderList) {
+				temp += o.getOrderNumber() + "▶";
+				temp += o.getGoodsNumber() + "▶";
+				temp += o.getMemberNumber() + "▶";
+				temp += o.getUsePoint() + "▶";
+				temp += o.getAccumulatePoint() + "▶";
+				temp += o.getName() + "▶";
+				temp += o.getAddress() + "▶";
+				temp += o.getPhoneNumber() + "▶";
+				temp += o.getSelectPayment() + "▶";
+				temp += o.isCancelCheck() + "▶";
+				temp += String.format("%tF", o.getOrderDate()) + "▶";
+				temp += o.getInvoiceNumber() + "▶";
+				temp += "\r\n";
+			}
+
+			writer.write(temp);
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 
+
 /**
  * 
  * @author 황현우	
@@ -30,7 +31,7 @@ public class AdminPurchaseStats {
 			menuMain();
 
 			System.out.print("선택: ");
-			int sel = Main.inputUserNum(0,0);
+			int sel = Main.inputUserNum(0,1);
 			Main.scan.nextLine();
 			
 			System.out.println("\n\n\n\n\n\n\n\n\n\n");
@@ -38,6 +39,9 @@ public class AdminPurchaseStats {
 			switch (sel) {
 			case 0: //종료
 				loop = false;
+				break;
+			case 1: //종료
+				loop = getProduct();
 				break;
 			}
 		}
@@ -59,14 +63,23 @@ public class AdminPurchaseStats {
 		getCategory1();
 		line(87);
 		getCategory2();
-		line(87);
-		getProduct();
 	}
 
-	private static void getProduct() {
+	private static boolean getProduct() {
+		line(87);
 		AdminStats.productStats.sort((p1,p2)->p2.getProductOrderNum()-p1.getProductOrderNum());
 		System.out.println("[인기순]");
 		AdminStats.productStats.stream().map(p->p.getProductCategory2Name()+" "+p.getProductName()).forEach(name -> System.out.println("\t"+name));
+		System.out.println("───────────────── [ 메뉴 목록 ] ─────────────────");
+		System.out.println("0. 뒤로가기");
+		System.out.println("──────────────────────────────────────────────────");
+		System.out.print("선택: ");
+		int sel = Main.inputUserNum(0,0);
+		Main.scan.nextLine();
+		if(sel==0) {
+			return true;
+		}
+		return true;
 	}
 
 	private static void getCategory2() {
@@ -82,11 +95,7 @@ public class AdminPurchaseStats {
 		}
 		Set<String> set = map.keySet();
 		for(String s : set) {
-			if(s.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")) {
-				System.out.printf("\t%-5s \t\t%3d개\r\n",s,map.get(s));
-			}else {
-				System.out.printf("\t%-10s \t\t%3d개\r\n",s,map.get(s));
-			}
+			System.out.printf("\t%-5s \t\t%3d개\r\n",s,map.get(s));
 		}
 		System.out.println();
 	}
@@ -104,11 +113,7 @@ public class AdminPurchaseStats {
 		}
 		Set<String> set = map.keySet();
 		for(String s : set) {
-			if(s.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")) {
-				System.out.printf("\t%-5s \t\t%3d개\r\n",s,map.get(s));
-			}else {
-				System.out.printf("\t%-10s \t\t%3d개\r\n",s,map.get(s));
-			}
+			System.out.printf("\t%-5s \t\t%3d개\r\n",s,map.get(s));
 		}
 		System.out.println();
 	}
@@ -194,6 +199,7 @@ public class AdminPurchaseStats {
 		
 		System.out.println("───────────────── [ 메뉴 목록 ] ─────────────────");
 		System.out.println("0. 뒤로가기");
+		System.out.println("1. 인기상품순 통계");
 		System.out.println("──────────────────────────────────────────────────");
 	}
 

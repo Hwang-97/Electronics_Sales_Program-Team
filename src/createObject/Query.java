@@ -2,11 +2,20 @@ package createObject;
 
 public class Query
 {
+	private int queryNum; // 문의 번호
 	private int memberNum; // 회원 번호
 	private String itemCode; // 상품 코드
 	private String queryContent; // 문의 내용
 	private String answerContent; // 답변 내용
 	
+	public int getQueryNum() 
+	{
+		return queryNum;
+	}
+	public void setQueryNum(int queryNum) 
+	{
+		this.queryNum = queryNum;
+	}
 	public int getMemberNum() 
 	{
 		return memberNum;
@@ -41,10 +50,11 @@ public class Query
 	}
 	public Query() 
 	{
-		this(0, null, null, null);
+		this(0, 0, null, null, null);
 	}
-	public Query(int memberNum, String itemCode, String queryContent, String answerContent)
+	public Query(int queryNum, int memberNum, String itemCode, String queryContent, String answerContent)
 	{
+		this.queryNum = queryNum;
 		this.memberNum = memberNum;
 		this.itemCode = itemCode;
 		this.queryContent = queryContent;

@@ -54,7 +54,7 @@ public class FindID {
 
 	private static void menuFindID() {
 		System.out.println();
-		System.out.println("#####아이디 찾기#####");
+		System.out.println("──────────────────────────────────────────────── [ ID 찾기 ] ───────────────────────────────────────────────");
 		System.out.println();
 	}
 }

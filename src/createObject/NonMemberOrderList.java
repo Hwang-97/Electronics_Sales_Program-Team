@@ -1,9 +1,14 @@
 package createObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import main.Main;
 
 public class NonMemberOrderList {
 	private static String path = "txtData\\비회원주문데이터.txt";
@@ -27,13 +32,39 @@ public class NonMemberOrderList {
 			d.setSelectPayment(temp[8]);
 			d.setCancelCheck(temp[9].equals("true"));
 			d.setOrderDate(temp[10]);
+			d.setInvoiceNumber(temp[11]);
 			orderList.add(d);
 		}
 
 		reader.close();
 		return orderList;
 	}
-	
-	
+
+	public static void save() {
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+			String temp = "";
+			for (Order o : Main.nonMemberOrderList) {
+				temp += o.getOrderNumber() + "▶";
+				temp += o.getGoodsNumber() + "▶";
+				temp += o.getMemberNumber() + "▶";
+				temp += o.getUsePoint() + "▶";
+				temp += o.getAccumulatePoint() + "▶";
+				temp += o.getName() + "▶";
+				temp += o.getAddress() + "▶";
+				temp += o.getPhoneNumber() + "▶";
+				temp += o.getSelectPayment() + "▶";
+				temp += o.isCancelCheck() + "▶";
+				temp += String.format("%tF", o.getOrderDate()) + "▶";
+				temp += o.getInvoiceNumber() + "▶";
+				temp += "\r\n";
+			}
+
+			writer.write(temp);
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

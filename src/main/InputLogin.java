@@ -1,16 +1,16 @@
 package main;
 
-import java.util.Scanner;
-
 public class InputLogin {
-	public static boolean main() {
-		
+	public static boolean main() throws Exception {
 		// 메인 - 로그인 - 회원 로그인
 		
 		boolean loop = true;
 		
 		while (loop) {
+			System.out.println("루프1**********");
+			BuyProduct.gotoInput=false;
 			if(Main.nowLogin) {	//로그인이 되어있는 경우
+				System.out.println("루프2**********");
 				printInputLogin();
 				menuInputLogin();
 				
@@ -28,13 +28,13 @@ public class InputLogin {
 					loop = OrderDetailsCheck.main();
 					break;
 				case 3:
-					loop = true;
+					loop = BasketStart.main();
 					break;
 				case 4:
 					loop = SearchProduct.main();
 					break;
 				case 5:
-					loop = true;
+					loop = Delivery.main();
 					break;
 				case 6:
 					loop = Withdraw.main();
@@ -42,6 +42,7 @@ public class InputLogin {
 				case 7:
 					Main.id=null;
 					Main.pw=null;
+					Main.memberNumber=(Integer) null;
 					Main.nowLogin=false;
 					loop = false;
 					break;
@@ -57,6 +58,7 @@ public class InputLogin {
 				
 				if(isValidLogin(Main.id, Main.pw)) { //로그인 성공했을 경우
 //				System.out.println("로그인에 성공했습니다.");
+					System.out.println("루프3**********");
 					Main.nowLogin=true;
 					printInputLogin();
 					menuInputLogin();
@@ -79,13 +81,15 @@ public class InputLogin {
 						loop = OrderDetailsCheck.main();
 						break;
 					case 3:
-						loop = true;
+						loop = BasketStart.main();
 						break;
 					case 4:
 						loop = SearchProduct.main();
 						break;
 					case 5:
-						loop = true;
+						System.out.print("배송조회로~");
+						loop = Delivery.main();
+						System.out.print("배송조회끝~");
 						break;
 					case 6:
 						loop = Withdraw.main();
@@ -98,6 +102,7 @@ public class InputLogin {
 						break;
 					}
 				} else { //로그인 실패했을 경우
+					System.out.println("루프4**********");
 					printFailLogin();
 					
 					System.out.print("선택: ");

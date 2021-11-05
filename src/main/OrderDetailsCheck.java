@@ -77,7 +77,7 @@ public class OrderDetailsCheck {
 	 */
 	private static void details() {
 		String productPath = ".\\txtData\\product\\";	// 뒤에 상품 코드.txt를 넣어서 확인한다
-		Print.line(20);	
+		System.out.println("───────────────────────────────────────────────────────────────────────────────────────────────────────────");
 		System.out.print("주문번호입력 : ");						// 주문번호를 입력받으면 해당 번호를 주문 데이터에서 찾은뒤 상품코드를 반환
 		String select = Main.scan.nextLine();
 		int selectInt=0;
@@ -118,11 +118,12 @@ public class OrderDetailsCheck {
 				break;
 			}//if
 		}
-		Print.line(20);
-		System.out.println("0.뒤로가기");
-		System.out.println("1.구매 취소");
-		System.out.println("2.리뷰 작성");
-		Print.line(20);
+		menuOrderDetails();
+//		Print.line(20);
+//		System.out.println("0.뒤로가기");
+//		System.out.println("1.구매 취소");
+//		System.out.println("2.리뷰 작성");
+//		Print.line(20);
 		System.out.print("번호입력 : ");
 		select = Main.scan.nextLine();
 		int selectInt2=0;
@@ -152,7 +153,7 @@ public class OrderDetailsCheck {
 	}
 	private static void cancel(int select) {
 		
-		Print.line(20);
+		System.out.println("───────────────────────────────────────────────────────────────────────────────────────────────────────────");
 		System.out.print("구매를 취소하시겠습니까? ( Y / N ) :");
 		String selectCancle = Main.scan.nextLine();
 		
@@ -252,7 +253,7 @@ public class OrderDetailsCheck {
 				orderMain();
 			}else {
 				System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-				System.out.println("주문하신 제품이 이미 출고되어 취소가 불가능 함니다. 주문 리스트로 돌아갑니다.");
+				System.out.println("주문하신 제품이 이미 출고되어 취소가 불가능 합니다. 주문 리스트로 돌아갑니다.");
 				orderMain();
 			}
 		}else if(selectCancle.equals("n") || selectCancle.equals("N")){ // N 주문리스트로 다시 되 돌아감
@@ -266,94 +267,76 @@ public class OrderDetailsCheck {
 	}
 
 	private static void review(int select) {
-		// 1. 리뷰 데이터에 정보 추가
-		// 2. (상품번호,회원번호,별점,리뷰 ) 작성
-		String s= "                 _               \r\n"
-				+ "  _ __ _____   _(_) _____      __\r\n"
-				+ " | '__/ _ \\ \\ / / |/ _ \\ \\ /\\ / /\r\n"
-				+ " | | |  __/\\ V /| |  __/\\ V  V / \r\n"
-				+ " |_|  \\___| \\_/ |_|\\___| \\_/\\_/  \r\n"
-				+ "                                 ";
-		System.out.println(s);
-		String reviewTxt="";
-		int productNumber = 0;
-//		String path= ".\\src\\txtData\\상품 리뷰.txt";					// 리스트만 조작할 것이기 때문에 주석처리
-		for(int i=0;i<orderList.size();i++) {//주문 데이터 에서 주문 번호를 선택 한 뒤 해당 상품번호를 반환
-			//회원번호 > 상품 코드 > 
-			if(orderList.get(i).getOrderNumber()==select) {
-				reviewTxt=orderList.get(i).getMemberNumber()+"▶";
-				productNumber=orderList.get(i).getGoodsNumber();		// 해당 주문 번호의 상품번호 저장
-				break;
-			}
-		}
-		for(int i=0;i<productList.size();i++) {
-			if(productNumber==productList.get(i).getProductNum()) {
-				reviewTxt+=productList.get(i).getProductCode()+"▶";		// 가져온 상품 번호의 상품 코드 저장
-			}
-		}
-		Print.line();
-		int score =0;
-		System.out.println("상품 평정을 선택해 주세요!!");
-		System.out.println("1. 1점");
-		System.out.println("2. 2점");
-		System.out.println("3. 3점");
-		System.out.println("4. 4점");
-		System.out.println("5. 5점");
-		System.out.print("입력 : ");
-		try {
-			score = Integer.parseInt(Main.scan.nextLine());
-		}catch(Exception e) {
-			System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-			System.out.println("다시 선택해 주세요..!");
-			review(select);
-		}
-		switch(score){
-			case 1 : case 2 : case 3 : case 4 : case 5 :
-			break;
-			default :
-				System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-				System.out.println("다시 선택해 주세요..!");
-				review(select);
-		}
-		// 별점
-		reviewTxt+=score+"▶";
-		Print.line();
-		System.out.println("아래 리뷰를 작성 후 Enter 눌러 주세요!!");
-		System.out.print("입력 :");
-		reviewTxt+=Main.scan.nextLine();
-		Print.line();
-		
-		String[] reviewArr = reviewTxt.split("▶");
-		Main.reviewList.add(new Review(Integer.parseInt(reviewArr[0]),reviewArr[1],Integer.parseInt(reviewArr[2]),reviewArr[3]));
-		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-		System.out.println("리뷰가 입력되었습니다. 주문 리스트로 돌아갑니다.");
-		orderMain();
-		//List 조작
-		
-//		try {																				// 파일을 직점 조작하는 부분이기 때문에 주석처리
-//			BufferedWriter writer = new BufferedWriter(new FileWriter(path,true));
-//			writer.write(reviewTxt+"\r\n");
-//			writer.close();
-//			System.out.println("리뷰가 입력되었습니다. 주문 리스트로 돌아갑니다.");
-//			orderMain();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-		// 직접 추가																		// 파일을 직점 조작하는 부분이기 때문에 주석처리
-	}
+	      // 1. 리뷰 데이터에 정보 추가
+	      // 2. (상품번호,회원번호,별점,리뷰 ) 작성
+	      
+	      int reviewNum = Main.reviewList.size()+1;; // 리뷰 번호
+	      int memberNum = Main.memberNumber; // 회원 번호
+	      String itemCode=""; // 상품 코드
+	      int itemScore=0; // 상품 평점
+	      String reviewContent=""; // 리뷰 내용
+	      
+	      printReview();
+	      int productNumber = 0;
+//	      String path= ".\\src\\txtData\\상품 리뷰.txt";               // 리스트만 조작할 것이기 때문에 주석처리
+	      for(int i=0;i<orderList.size();i++) {//주문 데이터 에서 주문 번호를 선택 한 뒤 해당 상품번호를 반환
+	         //회원번호 > 상품 코드 > 
+	         if(orderList.get(i).getOrderNumber()==select) {
+//	            reviewTxt=""+orderList.get(i).getMemberNumber();
+	            productNumber=orderList.get(i).getGoodsNumber();      // 해당 주문 번호의 상품번호 저장
+	            break;
+	         }
+	      }
+	      for(int i=0;i<productList.size();i++) {
+	         if(productNumber==productList.get(i).getProductNum()) {
+	            itemCode=productList.get(i).getProductCode();      // 가져온 상품 번호의 상품 코드 저장
+	         }
+	      }
+	      System.out.println("==========================================================================================================");
+	      
+	      int score =0;
+	      System.out.println("상품 평정을 선택해 주세요!!");
+	      System.out.println("1. 1점");
+	      System.out.println("2. 2점");
+	      System.out.println("3. 3점");
+	      System.out.println("4. 4점");
+	      System.out.println("5. 5점");
+	      System.out.println("───────────────────────────────────────────────────────────────────────────────────────────────────────────");
+	      System.out.print("입력 : ");
+	      try {
+	         score = Integer.parseInt(Main.scan.nextLine());
+	      }catch(Exception e) {
+	         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+	         System.out.println("다시 선택해 주세요..!");
+	         review(select);
+	      }
+	      switch(score){
+	         case 1 : case 2 : case 3 : case 4 : case 5 :
+	         break;
+	         default :
+	            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+	            System.out.println("다시 선택해 주세요..!");
+	            review(select);
+	      }
+	      // 별점
+	      itemScore=score;
+	      Print.line();
+	      System.out.println("아래 리뷰를 작성 후 Enter 눌러 주세요!!");
+	      System.out.print("입력 :");
+	      reviewContent=Main.scan.nextLine();
+	      Print.line();
+	      
+	      Main.reviewList.add(new Review(reviewNum,memberNum,itemCode,itemScore,reviewContent));
+	      System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+	      System.out.println("리뷰가 입력되었습니다. 주문 리스트로 돌아갑니다.");
+	      orderMain();      
+	   }
 
 	private static void orderMain() {
 		
 		///////////////////////////////////////////////////////////////////////		 삭제해도 되는부분																	
-		String s = "   ___          _           \r\n"
-				+ "  / _ \\ _ __ __| | ___ _ __ \r\n"
-				+ " | | | | '__/ _` |/ _ \\ '__|\r\n"
-				+ " | |_| | | | (_| |  __/ |   \r\n"
-				+ "  \\___/|_|  \\__,_|\\___|_|   \r\n"
-				+ "                            ";
-		System.out.println(s);
+		printOrder();
 		////////////////////////////////////////////////////////////////////////	삭제해도 되는부분
-		Print.line(106);
 		System.out.print("[주문일자]"); 
 		Print.tap(); 
 		System.out.print("[주문번호]");
@@ -373,26 +356,27 @@ public class OrderDetailsCheck {
 		for(int i=0; i<orderList.size();i++) { 																// 주문 내용만큼 돌리면서 출력함
 			System.out.print(orderList.get(i).getOrderDate());						// 주문일
 			Print.tap(); 
-			System.out.print(String.format("%10d", orderList.get(i).getOrderNumber()));						// 주문번호
+			System.out.print(String.format("%5d", orderList.get(i).getOrderNumber()));						// 주문번호
+			Print.tap();
 			Print.tap();
 			Print.tap();
 			System.out.print(productList.get(i).getProductCategory2Name());									//상품리스트의 카테고리2 번호를 참조하여 카테고리2List의 데이터 출력
 			System.out.print(" "+productList.get(i).getProductName());										// 상문 이름 카테고리와 띄어쓰기함
 			Print.tap(); 
-			Print.tap(); 
+			//Print.tap();
+			System.out.print(" ");
 			System.out.print(productList.get(i).getProductStock());											//상품 수량
 			Print.tap(); 
 			Print.tap(); 
-			System.out.print(String.format("%,9d원", productList.get(i).getProductPrice()));				//가격을 원 , 를 이용하여 표현
+			System.out.print(String.format("%,7d원", productList.get(i).getProductPrice()));				//가격을 원 , 를 이용하여 표현
 			Print.tap();
-			System.out.print(String.format("%-7s", trackingList.get(i).getDeliveryStatus()));				//배송현황을 trackingKList에서 가져옴
+			System.out.print(String.format("%5s", trackingList.get(i).getDeliveryStatus()));				//배송현황을 trackingKList에서 가져옴
 			System.out.println();
 		}
-		Print.line(106);
+//		Print.line(106);
 		
-		System.out.println("0.뒤로가기");														
-		System.out.println("1.상세조회");
-		Print.line(20);	
+		menuOrder();	
+		
 		System.out.print("번호입력 : ");
 		String select = Main.scan.nextLine();
 		int selectInt=0;
@@ -402,7 +386,6 @@ public class OrderDetailsCheck {
 			System.out.println("해당하는 번호를 눌러주세요.");
 			orderMain();
 		}
-		System.out.println(selectInt);
 		switch(selectInt) {
 			case 0 : 
 				return;
@@ -417,7 +400,60 @@ public class OrderDetailsCheck {
 			}
 	}
 	
+private static void printOrder() {
+		
+		
+		System.out.println("===========================================================================================================");
+		System.out.println("\t\t\t\t    ___          _           \r\n"
+				+ "\t\t\t\t   / _ \\ _ __ __| | ___ _ __ \r\n"
+				+ "\t\t\t\t  | | | | '__/ _` |/ _ \\ '__|\r\n"
+				+ "\t\t\t\t  | |_| | | | (_| |  __/ |   \r\n"
+				+ "\t\t\t\t   \\___/|_|  \\__,_|\\___|_|   \r\n"
+				+ "\t\t\t\t                             ");
+		System.out.println("===========================================================================================================");
+		System.out.println();
+		
+		
+		
+		
+		
+	}
 	
+	private static void printReview() {
+		
+		System.out.println("==========================================================================================================");
+		String s= "\t\t\t\t                  _               \r\n"
+				+ "\t\t\t\t   _ __ _____   _(_) _____      __\r\n"
+				+ "\t\t\t\t  | '__/ _ \\ \\ / / |/ _ \\ \\ /\\ / /\r\n"
+				+ "\t\t\t\t  | | |  __/\\ V /| |  __/\\ V  V / \r\n"
+				+ "\t\t\t\t  |_|  \\___| \\_/ |_|\\___| \\_/\\_/  \r\n"
+				+ "\t\t\t\t                                  ";
+		System.out.println(s);
+		System.out.println("==========================================================================================================");
+	}
+	
+	private static void menuOrder() {
+		
+		System.out.println();
+		System.out.println("─────────────────────────────────────────── +-+-+|M|E|N|U|+-+-+ ───────────────────────────────────────────");
+		System.out.println("\t\t\t 1. 상세 조회");
+		System.out.println();
+		System.out.println("\t\t\t 0. 뒤로가기 ");
+		System.out.println("───────────────────────────────────────────────────────────────────────────────────────────────────────────");
+		
+	}
+	
+	private static void menuOrderDetails() {
+		
+		System.out.println();
+		System.out.println("─────────────────────────────────────────── +-+-+|M|E|N|U|+-+-+ ───────────────────────────────────────────");
+		System.out.println("\t\t\t 1. 구매 취소 \t\t\t\t 2. 리뷰 작성");
+		System.out.println();
+		System.out.println("\t\t\t 0. 뒤로가기 ");
+		System.out.println("───────────────────────────────────────────────────────────────────────────────────────────────────────────");
+		
+		
+	}
 }
 
 class Print{

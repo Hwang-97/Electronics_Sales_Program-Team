@@ -12,6 +12,7 @@ public class Member {
 	private String pw; // 로그인 패스워드
 	private String name;// 이름
 	private String tel;// 전화번호
+	
 	private String address;// 주소
 	private String gender;// 성별
 	private String mail;// 이메일
@@ -26,6 +27,51 @@ public class Member {
 	private List<Order> orderList;// 주문내역
 
 	private List<Basket> basketList;// 장바구니
+
+	public Member() {
+		this(0, 0, 0, 0, "", "", "", "", "", "", "", "", "", "", "", false, false, null, null);
+	}
+
+	public Member(int memberNumber, 
+			int currentPoint, 
+			int totalPoint, 
+			int totalMoney, 
+			String id, 
+			String pw, 
+			String name,
+			String tel, 
+			String address, 
+			String gender, 
+			String mail, 
+			String registrationNumber, 
+			String birthday,
+			String signUp, 
+			String leave, 
+			boolean isAdmin, 
+			boolean isQuit, 
+			List<Order> orderList,
+			List<Basket> basketList) {
+		super();
+		this.memberNumber = memberNumber;
+		this.currentPoint = currentPoint;
+		this.totalPoint = totalPoint;
+		this.totalMoney = totalMoney;
+		this.id = id;
+		this.pw = pw;
+		this.name = name;
+		this.tel = tel;
+		this.address = address;
+		this.gender = gender;
+		this.mail = mail;
+		this.registrationNumber = registrationNumber;
+		this.birthday = birthday;
+		this.signUp = signUp;
+		this.leave = leave;
+		this.isAdmin = isAdmin;
+		this.isQuit = isQuit;
+		this.orderList = orderList;
+		this.basketList = basketList;
+	}
 
 	public int getMemberNumber() {
 		return memberNumber;
@@ -196,11 +242,13 @@ public class Member {
 		temp += "성별 : " + this.gender + "\r\n";
 		temp += "생년월일 : " + this.birthday + "\r\n";
 		temp += "전화번호 : " + this.tel + "\r\n";
-		temp += "이메일 : " + this.mail + "\r\n";
 		temp += "주소 : " + this.address + "\r\n";
-		temp += "총 결제 금액 : " + this.totalMoney + "(원)\r\n";
-		temp += "남은 포인트(누적 포인트) : " + this.currentPoint + "(" + this.totalPoint + ")" + "\r\n";
-		temp += "가입 일자 : " + this.signUp + "\r\n";
+		if (!this.signUp.equals("")) {
+			temp += "이메일 : " + this.mail + "\r\n";
+			temp += "총 결제 금액 : " + this.totalMoney + "(원)\r\n";
+			temp += "남은 포인트(누적 포인트) : " + this.currentPoint + "(" + this.totalPoint + ")" + "\r\n";
+			temp += "가입 일자 : " + this.signUp + "\r\n";
+		}
 		return temp;
 
 	}

@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import main.Main;
+
 public class NonMemberList {
 	private static String path = "txtData\\비회원데이터.txt";
 
@@ -58,7 +60,7 @@ public class NonMemberList {
 
 		// 장바구니 데이터 저장
 		List<Basket> basketList = new ArrayList<Basket>();
-		basketList = NonMemberBasketList.load();
+		//basketList = NonMemberBasketList.load();
 		for (Member m : nonMemberList) {
 			List<Basket> nmBasketList = new ArrayList<Basket>();
 			for (Basket b : basketList) {
@@ -75,10 +77,10 @@ public class NonMemberList {
 		return nonMemberList;
 	}
 
-	public static void save(List<Member> memberList) throws Exception {
+	public static void save() throws Exception {
 		BufferedWriter writer = new BufferedWriter(new FileWriter(path));
 		String temp = "";
-		for (Member m : memberList) {
+		for (Member m : Main.nonMemberList) {
 			// 1▶정희연▶qdjp5532▶dq35▶010-2553-2195▶M▶수원시
 			// 마마동▶870561-8461357▶qdjp5532gmail.com▶90392▶149▶39419▶22-2-20▶21-10-17▶0▶1▶
 			// writer.write("회원번호▶이름▶아이디▶비밀번호▶전화번호▶성별▶주소▶주민번호▶이메일▶누적결제금액▶남은포인트▶누적포인트▶가입일자▶탈퇴일자▶관리자여부▶탈퇴여부\r\n");

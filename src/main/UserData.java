@@ -1,14 +1,10 @@
 package main;
 
-import java.util.Scanner;
-
-
 public class UserData {
-	public static boolean main()
-	{
-		
+	public static boolean main() {
+
 		boolean loop = true;
-		
+
 		while (loop) {
 			printUserData();
 			menuUserData();
@@ -16,8 +12,7 @@ public class UserData {
 			System.out.print("선택: ");
 			int sel = Main.inputUserNum(0, 2);
 			Main.scan.nextLine();
-			
-			
+
 			System.out.println("\n\n\n\n\n\n\n\n\n\n");
 
 			switch (sel) {
@@ -34,16 +29,20 @@ public class UserData {
 		}
 		return true;
 	}
+
 	private static void printUserData() {
-		System.out.println("───────────────── [ 개인정보 확인 ] ─────────────────");
+		System.out.println(
+				"────────────────────────────────────────────── [ 개인정보 확인 ] ──────────────────────────────────────────────");
 	}
-		
-	private static void menuUserData()
-	{
-		System.out.println("───────────────── [ 메뉴 목록 ] ─────────────────");
-		System.out.println("0. 뒤로가기");
-		System.out.println("1. 개인정보 확인");
-		System.out.println("2. 개인정보 수정");
-		System.out.println("───────────────────────────────────────────────");
+
+	private static void menuUserData() {
+
+		System.out.println(
+				"─────────────────────────────────────────── +-+-+|M|E|N|U|+-+-+ ───────────────────────────────────────────");
+		System.out.println("\t\t\t 1. 개인정보 확인 \t\t\t\t 2. 개인정보 수정");
+		System.out.println();
+		System.out.println("\t\t\t 0. 뒤로가기 ");
+		System.out.println(
+				"───────────────────────────────────────────────────────────────────────────────────────────────────────────");
 	}
 }

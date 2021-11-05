@@ -9,6 +9,9 @@ public class SearchProduct2 {
 		int searchCategory2 = -1; 			// 사용자가 고른 카테고리2
 		
 		while (loop) {
+			if(BuyProduct.gotoInput) 
+				return false;
+			
 			SearchProduct.menuCategoryList(createObject.ProductList.CName2); // 카테고리2 메뉴 출력
 
 			searchCategory2 = SearchProduct.inputCategoryNum();

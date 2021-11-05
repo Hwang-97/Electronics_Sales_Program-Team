@@ -1,7 +1,5 @@
 package main;
 
-import java.util.Scanner;
-
 public class FindPW {
 	public static boolean main() {
 		
@@ -63,7 +61,7 @@ public class FindPW {
 
 	private static void menuFindPW() {
 		System.out.println();
-		System.out.println("#####아이디 찾기#####");
+		System.out.println("──────────────────────────────────────────────── [ PW 찾기 ] ───────────────────────────────────────────────");
 		System.out.println();
 	}
 }
