@@ -255,10 +255,6 @@
 		for(i=0;i<Main.orderList.size();i++) {
 			String memberOrderYear =Main.orderList.get(i).getOrderDate().substring(0,4);																							// 현재년도에 주문했던 상품 정보 복사
 			Main.productList.stream().filter(p->memberOrderYear.equals(year) && Main.orderList.get(i).getGoodsNumber()==p.getProductNum() && !currenYearProductStats.contains(p)).forEach(p->currenYearProductStats.add(p));
-//			System.out.println(Main.orderList.get(i).hashCode());
-//			List<Order> list = new ArrayList<Order> ()	;
-//			list.add(Main.orderList.get(i));
-//			System.out.println(list.get(0).hashCode());
 			// 중복 방지 가능한지 확있했던 코드
 		}
 		for(i=0;i<Main.nonMemberOrderList.size();i++) {
@@ -269,7 +265,6 @@
 		currenMonthMember			= new ArrayList<Member>();
 		currenMonthProductStats		= new ArrayList<Product>();
 		month	   = String.format("%tF", c).substring(5,7);
-//		month="10";
 		for(i=0;i<Main.orderList.size();i++) {																																		// 회원 정보 복사
 			String memberOrderMonth =Main.orderList.get(i).getOrderDate().substring(5,7);
 			Main.memberList.stream().filter(m-> memberOrderMonth.equals(month) && Main.orderList.get(i).getMemberNumber()==m.getMemberNumber()).forEach(m->currenMonthMember.add(m));
